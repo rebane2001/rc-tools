@@ -28,14 +28,6 @@ def recursiveDecode(s,i):
                 recursiveDecode(bits2string(s.replace(" ","")),i-1)
             except:
                 pass
-        if "=" in s:
-            try:
-                missing_padding = len(s) % 4
-                if missing_padding:
-                    s += "="* (4 - missing_padding)
-                recursiveDecode(base64.b64decode(s.replace(" ","")).decode("UTF-8"),i-1)
-            except:
-                pass
         if re.match(r_bf,s):
             try:
                 recursiveDecode(evaluateBF(s.replace(" ","")),i-1)
