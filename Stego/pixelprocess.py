@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 #https://github.com/rebane2001/rc-tools
 #Goes through every pixel of image
 import sys
