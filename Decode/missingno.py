@@ -9,7 +9,7 @@ import base64
 
 r_hex = re.compile(r"^([a-f0-9]+|[A-F0-9]+)$")
 r_bin = re.compile(r"^[01 ]+$")
-r_b64 = re.compile(r"^[a-zA-Z0-9 =+/]+$")
+r_b64 = re.compile(r"^[a-zA-Z0-9 =+/-_]+$")
 r_bf = re.compile(r"^[+-<>\[\] ]+$")
 r_url = re.compile(r".*:\/\/.*")
 
@@ -40,6 +40,9 @@ def recursiveDecode(s,i):
                 pass
         if re.match(r_b64,s):
             try:
+                #urlsafeb64 > normal b64
+                s = s.replace("-","+").replace("_","/")
+                #we fix padding so b64decode doesn't error
                 missing_padding = len(s) % 4
                 if missing_padding:
                     s += "="* (4 - missing_padding)
