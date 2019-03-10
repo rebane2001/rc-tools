@@ -8,6 +8,10 @@ from pyzbar.pyzbar import decode
 from PIL import Image
 from multiprocessing.dummy import Pool as ThreadPool 
 
+if not len(sys.argv) == 2:
+    print("Usage:",sys.argv[0],"qrfile.png")
+    raise SystemExit(0)
+
 def tryqr(vfff):
     vf, ff = vfff
     #print("Trying",vf,ff)
