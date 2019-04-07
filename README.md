@@ -18,9 +18,11 @@ Looks for a CTF flag recursively through all files and their `strings`
 Looks for plaintext and hex, b64 planned  
 Only works on Linux or WSL  
 ### Stego  
-#### pixelprocess.py  
+#### pixelprocess_img.py  
 Processes every pixel of an image  
 Useful for writing your own image manipulation/stego tools/scripts  
+#### pixelprocess_new.py  
+Like pixelprocess_img, but it will generate and save a new image instead of going through an existing one  
 #### fixqrcode.py  
 Attempts to fix a broken QR code to make it readable again  
 Supports fixing: position, alignment and timing patterns, version and format information  
