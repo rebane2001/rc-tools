@@ -12,6 +12,7 @@ r_bin = re.compile(r"^[01 ]+$")
 r_b64 = re.compile(r"^[a-zA-Z0-9 =+/-_]+$")
 r_bf = re.compile(r"^[+-<>\[\] ]+$")
 r_url = re.compile(r".*:\/\/.*")
+r_morse = re.compile(r"^[-\./# ) ]+$")
 
 def bits2string(s):
     return ''.join(chr(int(s[i*8:i*8+8],2)) for i in range(len(s)//8))
@@ -25,7 +26,14 @@ def recursiveDecode(s,i):
     if i != 0:
         if re.match(r_bin, s):
             try:
+
                 recursiveDecode(bits2string(s.replace(" ","")),i-1)
+            except:
+                pass
+        if re.match(r_morse, s):
+            try:
+
+                recursiveDecode(morse(s),i-1)
             except:
                 pass
         if re.match(r_bf,s):
@@ -64,6 +72,68 @@ def rot(n):
     from string import ascii_lowercase as lc, ascii_uppercase as uc
     lookup = str.maketrans(lc + uc, lc[n:] + lc[:n] + uc[n:] + uc[:n])
     return lambda s: s.translate(lookup)
+
+#Code from:
+#https://gist.github.com/ebuckley/1842461
+morseAlphabet = {
+   ".-" : "A",
+   "-..." : "B",
+   "-.-." : "C",
+   "-.." : "D",
+   "." : "E",
+   "..-." : "F",
+   "--." : "G",
+   "...." : "H",
+   ".." : "I",
+   ".---" : "J",
+   "-.-" : "K",
+   ".-.." : "L",
+   "--" : "M",
+   "-." : "N",
+   "---" : "O",
+   ".--." : "P",
+   "--.-" : "Q",
+   ".-." : "R",
+   "..." : "S",
+   "-" : "T",
+   "..-" : "U",
+   "...-" : "V",
+   ".--" : "W",
+   "-..-" : "X",
+   "-.--" : "Y",
+   "--.." : "Z",
+   "/" : " ",
+   ".----" : "1",
+   "..---" : "2",
+   "...--" : "3",
+   "....-" : "4",
+   "....." : "5",
+   "-...." : "6",
+   "--..." : "7",
+   "---.." : "8",
+   "----." : "9",
+   "-----" : "0",
+   ".-.-.-" : ".",
+   "--..--" : ",",
+   "---..." : ":",
+   "..--.." : "?",
+   ".----." : "'",
+   "-....-" : "-",
+   "-..-." : "/",
+   ".--.-." : "@",
+   "-...-" : "="
+}
+def morse(message):
+    messageSeparated = message.split(' ')
+    decodeMessage = ''
+    for char in messageSeparated:
+        if char in morseAlphabet:
+            decodeMessage += morseAlphabet[char]
+        else:
+            # CNF = Character not found
+            decodeMessage += '<CNF>'
+    return decodeMessage
+
 
 ### Brainfuck code, original not by Rebane, here are the credits of the guy who made this:
 # Brainfuck Interpreter
