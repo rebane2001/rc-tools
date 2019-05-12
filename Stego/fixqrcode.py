@@ -15,6 +15,7 @@ parser.add_argument("-ff", help="Attempt to also fix the format information (0 a
 parser.add_argument("-np", help="Don't fix position info", action="store_true")
 parser.add_argument("-na", help="Don't fix alignment info", action="store_true")
 parser.add_argument("-nt", help="Don't fix timing info", action="store_true")
+parser.add_argument("-nd", help="Don't fix the dot (bottom left)", action="store_true")
 try:
     args = parser.parse_args()
 except:
@@ -110,6 +111,9 @@ if not args.vf == None:
                 pix[(h,height-11+w)] = pix[(width-11+w,h)]
             else:
                 pix[(width-11+w,h)] = pix[(h,height-11+w)]
+
+if not args.nd: #adds a random dot that helps fix stuff
+    pix[(8,height-8)] = 0
 
 if not args.ff == None:
     ff = int(args.ff)
