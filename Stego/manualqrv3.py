@@ -108,6 +108,7 @@ ENCODINGS = [
 [8,"Structured append"], # 3 = 0b0011
 [8,"Byte encoding"], # 4 = 0b0100
 [8,"FNC1 in first position"], # 5 = 0b0101
+[8,"BAD ENCODING"], # 6
 [8,"ECI"], # 7 = 0b0111
 [8,"Kanji encoding"], # 8 = 0b1000
 [8,"FNC1 in second position"], # 9 = 0b1001
