@@ -179,7 +179,8 @@ for MASK_PATTERN in MASK_PATTERNS:
     print("Enc:",ENCODINGS[encoding_type][1] if encoding_type < 10 else f"INVALID ENCODING ({encoding_type})")
     print("Len:",data_length)
     #print(ENCODINGS[encoding_type] if encoding_type < 10 else f"INVALID ENCODING ({encoding_type})")
-    print(bitstring_to_bytes(data_bin_str[4+(ENCODINGS[encoding_type][0] if encoding_type < 10 else 8):]))
+    #print(bitstring_to_bytes(data_bin_str[4+(ENCODINGS[encoding_type][0] if encoding_type < 10 else 8):]))
+    print(bitstring_to_bytes(data_bin_str[4+8:-4]))
 
 #for h in range(height):
 #    for w in range(width):
