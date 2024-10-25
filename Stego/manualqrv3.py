@@ -127,7 +127,7 @@ def read_block(pix,x,y,shape):
     return bin_out
 
 for MASK_PATTERN in MASK_PATTERNS:
-    im      = Image.open("qr_test.png").convert("RGB")
+    im      = Image.open(filename).convert("RGB")
     pix     = im.load()
     width, height = im.size
 
