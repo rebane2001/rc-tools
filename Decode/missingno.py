@@ -16,8 +16,7 @@ r_morse = re.compile(r"^[-\./# ) ]+$")
 
 def bits2string(s):
     return ''.join(chr(int(s[i*8:i*8+8],2)) for i in range(len(s)//8))
-def shouldIPrint(s):
-    return True
+
 def recursiveDecode(s,i):
     global r_hex
     global r_bin
@@ -133,7 +132,6 @@ def morse(message):
             # CNF = Character not found
             decodeMessage += '<CNF>'
     return decodeMessage
-
 
 ### Brainfuck code, original not by Rebane, here are the credits of the guy who made this:
 # Brainfuck Interpreter
