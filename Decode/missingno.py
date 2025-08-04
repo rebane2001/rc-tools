@@ -25,13 +25,11 @@ def recursiveDecode(s,i):
     if i != 0:
         if re.match(r_bin, s):
             try:
-
                 recursiveDecode(bits2string(s.replace(" ","")),i-1)
             except:
                 pass
         if re.match(r_morse, s):
             try:
-
                 recursiveDecode(morse(s),i-1)
             except:
                 pass
