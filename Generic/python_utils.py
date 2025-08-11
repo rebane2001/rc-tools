@@ -98,7 +98,7 @@ import importlib
 
 last_modified = 0
 last_check = 0
-def hotReload():
+def hot_reload():
     global last_modified
     global last_check
     if time.time() < last_check + 0.5:
@@ -113,5 +113,5 @@ def hotReload():
     last_modified = new_modified
 
 # def tick():
-#     if hotReload():
+#     if hot_reload():
 #         return
