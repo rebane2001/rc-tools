@@ -91,3 +91,27 @@ def hexdump(data, addr=0, length=-1):
     return out
 
 print(hexdump(b"A"*10 + b"\x00 sample text 123"))
+
+
+## hot reload
+import importlib
+
+last_modified = 0
+last_check = 0
+def hotReload():
+    global last_modified
+    global last_check
+    if time.time() < last_check + 0.5:
+        return
+    last_check = time.time()
+    new_modified = os.stat(__file__).st_mtime
+    if last_modified > 0 and new_modified != last_modified:
+        print("Reloading")
+        importlib.reload(sys.modules[__name__])
+        last_modified = new_modified
+        return True
+    last_modified = new_modified
+
+# def tick():
+#     if hotReload():
+#         return
