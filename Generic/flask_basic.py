@@ -16,7 +16,7 @@ request.json
 note: use request.get_json(force=True) to ignore mime
 
 """
-from flask import Flask, send_file, request, jsonify
+from flask import Flask, Response, send_file, request, jsonify
 
 app = Flask(__name__)
 
@@ -37,6 +37,12 @@ def file():
 def post():
     data = request.get_json(force=True)
     return jsonify(data)
+
+@app.route('/headers')
+def headers():
+    resp = Response("CORS example")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8000)
