@@ -127,8 +127,9 @@ results = pool.map(fun, arr)
 
 
 ## multithreading 2
+from multiprocessing import Pool as ThreadPool
+
 def main():
-    import json
     from tqdm import tqdm
 
     pool = ThreadPool(20)
