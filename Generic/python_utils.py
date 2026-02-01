@@ -115,3 +115,27 @@ def hot_reload():
 # def tick():
 #     if hot_reload():
 #         return
+
+
+## multithreading
+# .dummy is fake multiprocessing in a single thread
+from multiprocessing.dummy import Pool as ThreadPool
+# from multiprocessing import Pool as ThreadPool
+
+pool = ThreadPool(4)
+results = pool.map(fun, arr)
+
+
+## multithreading 2
+def main():
+    import json
+    from tqdm import tqdm
+
+    pool = ThreadPool(20)
+    results = pool.imap_unordered(fun, arr)
+    results = list(tqdm(results, total = len(arr)))
+    pool.close()
+    pool.join()
+
+if __name__ == '__main__':
+    main()
