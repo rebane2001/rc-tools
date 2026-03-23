@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+                                   <!--
+    rc-tools - html playground template
+    ===================================
+
+    This is a simple template html that
+    you can use to test out sanitizers
+    and other such scripts.
+
+    It provides an input textarea and
+    on input puts its value through the
+    process() function, which you can
+    make call whatever processing code
+    you're testing.                 -->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Playground Template</title>
+    <script type="text/javascript" src="./purify.js"></script>
+    <style>
+        #input {
+            width: 100%;
+            height: 200px;
+            box-sizing: border-box;
+        }
+        .output {
+            max-width: 80vw;
+            white-space: pre-wrap;
+            line-break: anywhere;
+        }
+    </style>
+</head>
+<body>
+<textarea id=input></textarea>
+
+<hr>
+<i>Output (raw)</i>
+<pre class="output" id="output1"></pre>
+
+<hr>
+<i>Output (dom)</i>
+<div class="output" id="outputDOM"></div>
+<hr>
+
+<i>Log</i>
+<pre class="output" id="outputLog"></pre>
+<hr>
+
+<script>
+    const input = document.getElementById("input");
+    const output1 = document.getElementById("output1");
+    const outputDOM = document.getElementById("outputDOM");
+    const outputLog = document.getElementById("outputLog");
+
+    async function process(value) {
+        return DOMPurify.sanitize(value)
+    }
+
+    async function run() {
+        clear();
+        const {value} = input;
+        sessionStorage.setItem("lastPlayground", value);
+        log(`Processing input (${value.length} chars)`);
+        const result = await process(value);
+        output1.innerText = result;
+        outputDOM.innerHTML = result;
+        if (result.length)
+            log(`Processed successfully!`);
+        else
+            log(`Output is empty!`);
+    }
+
+    function clear() {
+        outputLog.innerText = "";
+    }
+
+    function log(t) {
+        outputLog.innerText += t + "\n";
+    }
+
+    input.oninput = run;
+
+    window.onload = () => {
+        input.value = sessionStorage.getItem("lastPlayground") ?? "";
+        run();
+    }
+</script>
+</body>
+</html>
